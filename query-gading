@@ -1,13 +1,5 @@
 SELECT version ();
 
-
-DROP TABLE singer;
-DROP TABLE album;
-DROP TABLE track;
-DROP TABLE playlist;
-DROP TABLE playlist_track;
-
-
 CREATE TABLE `user`(
     `user_id` INT NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(50) NOT NULL DEFAULT '',
@@ -15,7 +7,7 @@ CREATE TABLE `user`(
     `password` VARCHAR(50) NOT NULL DEFAULT '',
     PRIMARY KEY (`user_id`)
 )
-DROP TABLE user;
+
 
 USE sql12617709;
 INSERT INTO `user` (`name`, `email`, `password`)
