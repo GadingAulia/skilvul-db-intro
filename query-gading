@@ -1,0 +1,306 @@
+SELECT version ();
+
+
+DROP TABLE singer;
+DROP TABLE album;
+DROP TABLE track;
+DROP TABLE playlist;
+DROP TABLE playlist_track;
+
+
+CREATE TABLE `user`(
+    `user_id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(50) NOT NULL DEFAULT '',
+    `email` VARCHAR (50) NOT NULL DEFAULT '',
+    `password` VARCHAR(50) NOT NULL DEFAULT '',
+    PRIMARY KEY (`user_id`)
+)
+DROP TABLE user;
+
+USE sql12617709;
+INSERT INTO `user` (`name`, `email`, `password`)
+VALUES
+    ('Aza', 'aza.hasna@example.com', 'password123'),
+    ('Lia', 'lia.pipita@example.com', 'qwerty'),
+    ('Muti', 'muti.ara@example.com', 'abc123'),
+    ('Hilmy', 'hilmy.taufiq@example.com', 'p@ssw0rd'),
+    ('Susan', 'susan.susi@example.com', 'secret'),
+    ('Ayu', 'ayu.cantik@example.com', '123456'),
+    ('Azizah', 'nur.azizah@example.com', 'letmein'),
+    ('Hilya', 'hilya.savina@example.com', 'welcome'),
+    ('Azel', 'azel.annisa@example.com', 'password1'),
+    ('Satria', 'satria.misbah@example.com', 'test123');
+
+SELECT * FROM `user`;
+
+CREATE TABLE `singer`(
+    `singer_id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(50) NOT NULL DEFAULT '',
+    PRIMARY KEY (`singer_id`)
+)
+
+USE sql12617709;
+INSERT INTO `singer` (`name`)
+VALUES
+    ('Tiara Andini'),
+    ('Mahalini'),
+    ('Lyodra'),
+    ('Ziva Magnolia'),
+    ('Nuca'),
+    ('Paul'),
+    ('Keysia Levronka'),
+    ('Rizky Febian'),
+    ('Lesti Kejora'),
+    ('Rose Blackpink');
+
+SELECT * FROM `singer`;
+
+CREATE TABLE `album`(
+    `album_id` INT(10) NOT NULL,
+    `name` VARCHAR(50) NOT NULL DEFAULT '',
+    PRIMARY KEY (`album_id`) USING BTREE
+)
+
+USE sql12617709;
+INSERT INTO `album` (`album_id`, `name`)
+VALUES
+    (1, 'Album A'),
+    (2, 'Album B'),
+    (3, 'Album C'),
+    (4, 'Album D'),
+    (5, 'Album E'),
+    (6, 'Album F'),
+    (7, 'Album G'),
+    (8, 'Album H'),
+    (9, 'Album I'),
+    (10, 'Album J');
+
+SELECT * FROM `album`;
+
+CREATE TABLE `track`(
+    `track_id` INT(10) NOT NULL AUTO_INCREMENT,
+    `title` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+    `singer` INT(10) NOT NULL,
+    `album` INT(10) NOT NULL,
+    PRIMARY KEY (`track_id`),
+    CONSTRAINT `album` FOREIGN KEY (`album`) REFERENCES `sql12617709`.`album`(`album_id`) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT `singer` FOREIGN KEY (`singer`) REFERENCES `sql12617709`.`singer`(`singer_id`) ON UPDATE CASCADE ON DELETE CASCADE
+)
+
+USE sql12617709;
+INSERT INTO `track` (`title`, `singer`, `album`)
+VALUES
+    ('Track A', 1, 1),
+    ('Track A1', 1, 1),
+    ('Track A2', 1, 1),
+
+    ('Track B', 2, 2),
+    ('Track B1', 2, 2),
+    ('Track B2', 2, 2),
+
+    ('Track C', 3, 3),
+    ('Track C1', 3, 3),
+    ('Track C2', 3, 3),
+
+    ('Track D', 4, 4),
+    ('Track D1', 4, 4),
+    ('Track D2', 4, 4),
+
+    ('Track E', 5, 5),
+    ('Track E1', 5, 5),
+    ('Track E2', 5, 5),
+
+    ('Track F', 6, 6),
+    ('Track F1', 6, 6),
+    ('Track F2', 6, 6),
+
+    ('Track G', 7, 7),
+    ('Track G1', 7, 7),
+    ('Track G2', 7, 7),
+
+    ('Track H', 8, 8),
+    ('Track H1', 8, 8),
+    ('Track H2', 8, 8),
+
+    ('Track I', 9, 9),
+    ('Track I1', 9, 9),
+    ('Track I2', 9, 9),
+
+    ('Track J', 10, 10);
+
+SELECT * FROM `track`;
+
+CREATE TABLE `playlist`(
+    `playlist_id` INT NOT NULL,
+    `name` VARCHAR(50) NOT NULL,
+    `user_id` INT NOT NULL,
+    PRIMARY KEY (`playlist_id`),
+    CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`) ON UPDATE CASCADE ON DELETE CASCADE
+)
+
+USE sql12617709;
+INSERT INTO `playlist` (`playlist_id`, `name`, `user_id`)
+VALUES
+    (1, 'Playlist Dangdut', 1),
+    (2, 'Playlist Rock', 2),
+    (3, 'Playlist Koplo', 1),
+    (4, 'Playlist K-POP', 3),
+    (5, 'Playlist POP', 2),
+    (6, 'Playlist Jaz', 3),
+    (7, 'Playlist Mix', 1),
+    (8, 'Playlist DJ', 2),
+    (9, 'Playlist Tradisonal', 3),
+    (10,'Playlist Jawa', 1);
+SELECT * FROM `playlist`;
+
+
+CREATE TABLE `playlist_track`(
+    `playlist_id` INT NOT NULL,
+    `track_id` INT NOT NULL,
+    CONSTRAINT `playlist` FOREIGN KEY (`playlist_id`) REFERENCES `playlist`(`playlist_id`) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT `track` FOREIGN KEY (`track_id`) REFERENCES `track`(`track_id`) ON UPDATE CASCADE ON DELETE CASCADE
+)
+
+
+USE sql12617709;
+INSERT INTO `playlist_track` (`playlist_id`, `track_id`)
+VALUES
+    (1, 1),
+    (1, 2),
+    (1, 3),
+    (2, 4),
+    (7, 5),
+    (3, 6),
+    (3, 7),
+    (4, 8),
+    (5, 9),
+    (5, 10);
+
+SELECT * FROM `playlist_track`;
+
+/* INSERT DATA to TABLE singer */
+INSERT INTO singer (name) 
+VALUES ('Krisdayanti');
+INSERT INTO singer (name) 
+VALUES ('Saykoji');
+INSERT INTO singer (name) 
+VALUES ('Mahalini');
+INSERT INTO singer (name) 
+VALUES ('Virgoun');
+INSERT INTO singer (name) 
+VALUES ('Bondan Prakoso');
+INSERT INTO singer (name) 
+VALUES ('Sheila on 7');
+INSERT INTO singer (name) 
+VALUES ('Dewa');
+INSERT INTO singer (name) 
+VALUES ('Hindia');
+INSERT INTO singer (name) 
+VALUES ('Ardhito Pramono');
+INSERT INTO singer (name) 
+VALUES ('420');
+SELECT * FROM singer;
+
+/* INSERT DATA to TABLE album */
+INSERT INTO album (name) 
+VALUES ('Cahaya');
+INSERT INTO album (name) 
+VALUES ('Musik Hati');
+INSERT INTO album (name) 
+VALUES ('Fabula');
+INSERT INTO album (name) 
+VALUES ('Surat Cinta Untuk Starla');
+INSERT INTO album (name) 
+VALUES ('Si Lumba Lumba');
+INSERT INTO album (name) 
+VALUES ('Berlayar');
+INSERT INTO album (name) 
+VALUES ('Laskar Cinta');
+INSERT INTO album (name) 
+VALUES ('Menari Dengan Bayangan');
+INSERT INTO album (name) 
+VALUES ('Wijayakusuma');
+INSERT INTO album (name) 
+VALUES ('Lelaku');
+SELECT * FROM album;
+
+/* INSERT DATA to TABLE track */
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Pililah Aku', 1, 1);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Mengenangmu', 1, 1);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Keinginanmu', 1, 1);
+
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Kan Kuikuti', 2, 2);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Bayangkan', 2, 2);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('On And On', 2, 2);
+
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Kisah Sempurna', 3, 3);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Sial', 3, 3);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Bohongi Hati', 3, 3);
+
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Seluruh Nafas Ini', 4, 4);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Surat Cinta Untuk Starla', 4, 4);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Dunia Untukmu', 4, 4);
+
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Si Lumba Lumba', 5, 5);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Komedi Putar', 5, 5);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Aku Suka Makan', 5, 5);
+
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Hari Bersamanya', 6, 6);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Pasti Kubisa', 6, 6);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Hujan Turun', 6, 6);
+
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Hadapi Dengan Senyuman', 7, 7);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Hidup Ini Indah', 7, 7);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Matahari Bintang Bulan', 7, 7);
+
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Membasuh', 8, 8);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Evakuasi', 8, 8);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Jam Makan Siang', 8, 8);
+
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Wijayakusuma', 9, 9);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Mula', 9, 9);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Asmara', 9, 9);
+
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Aku Tenang', 10, 10);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Hitam Putih', 10, 10);
+INSERT INTO track (title, singer_id, album_id) 
+VALUES ('Fana Merah Jambu', 10, 10);
+
+SELECT * FROM track;
+
+
+desc user;
+desc singer;
+desc album;
+desc track;
+desc playlist;
+desc playlist_track;
